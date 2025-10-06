@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSolutions Pro</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">TechSolutions Pro</div>
+                <ul class="nav-links">
+                    <li><a href="#inicio" onclick="showSection('home')">Inicio</a></li>
+                    <li><a href="#servicios" onclick="showSection('services')">Servicios</a></li>
+                    <li><a href="#contacto" onclick="showSection('contact')">Contacto</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-secondary" onclick="showLogin()" id="btnadmin">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Home Section -->
+        <section id="home-section">
+            <div class="hero">
+                <h1>Soluciones Tecnológicas Innovadoras</h1>
+                <p>Transformamos tu negocio con tecnología de vanguardia y servicios personalizados</p>
+                <a href="#servicios" class="btn btn-primary" onclick="showSection('services')">Ver Servicios</a>
+            </div>
+        </section>
+
+        <!-- Quote Section -->
+        <section id="quote-section" class="quote-section">
+            <div class="quote-container">
+                <div class="quote-header">
+                    <h2>Solicitar Cotización</h2>
+                    <p>Completa este formulario y te enviaremos una cotización personalizada en menos de 48 horas.</p>
+                </div>
+
+                <!-- Service Summary -->
+                <div class="service-summary" id="serviceSummary" style="display: none;">
+                    <h3 id="selectedServiceTitle">
+                        <span id="selectedServiceIcon"></span>
+                        <span id="selectedServiceName"></span>
+                    </h3>
+                    <div class="service-details">
+                        <div class="detail-item">
+                            <strong>💰 Precio Base</strong>
+                            <span id="selectedServicePrice"></span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>📦 Disponibilidad</strong>
+                            <span id="selectedServiceStock"></span>
+                        </div>
+                        <div class="detail-item" id="selectedServicePromotionContainer" style="display: none;">
+                            <strong>🎁 Promoción</strong>
+                            <span id="selectedServicePromotion"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quote Form -->
+                <div class="quote-form">
+                    <h3>📋 Información de Contacto</h3>
+                    <form id="quoteForm">
+                        <input type="hidden" id="quoteServiceId" name="serviceId">
+                        <input type="hidden" id="quoteServiceName" name="serviceName">
+
+                        <!-- Personal Info -->
+                        <div class="form-row">
+                            <div class="form-group-quote">
+                                <label for="quoteName">Nombre Completo *</label>
+                                <input type="text" id="quoteName" name="name" required placeholder="Tu nombre completo">
+                            </div>
+                            <div class="form-group-quote">
+                                <label for="quoteEmail">Email *</label>
+                                <input type="email" id="quoteEmail" name="email" required placeholder="tu@email.com">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group-quote">
+                                <label for="quotePhone">Teléfono *</label>
+                                <input type="tel" id="quotePhone" name="phone" required placeholder="+57 300 123 4567">
+                            </div>
+                            <div class="form-group-quote">
+                                <label for="quoteCompany">Empresa</label>
+                                <input type="text" id="quoteCompany" name="company" placeholder="Nombre de tu empresa">
+                            </div>
+                        </div>
+
+                        <!-- Project Details -->
+                        <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #667eea;">🎯 Detalles del Proyecto</h3>
+                        
+                        <div class="form-group-quote">
+                            <label for="quoteProjectTitle">Título del Proyecto *</label>
+                            <input type="text" id="quoteProjectTitle" name="projectTitle" required placeholder="Ej: Sitio web para mi restaurante">
+                        </div>
+
+                        <div class="form-group-quote">
+                            <label for="quoteDescription">Descripción del Proyecto *</label>
+                            <textarea id="quoteDescription" name="description" rows="4" required 
+                                placeholder="Describe tu proyecto, objetivos, funcionalidades que necesitas, público objetivo, etc."></textarea>
+                        </div>
+
+                        <!-- Budget Range -->
+                        <div class="form-group-quote">
+                            <label>💰 Presupuesto Estimado</label>
+                            <div class="budget-range">
+                                <div class="budget-option">
+                                    <input type="radio" id="budget1" name="budget" value="1-3M">
+                                    <label for="budget1">$1M - $3M</label>
+                                </div>
+                                <div class="budget-option">
+                                    <input type="radio" id="budget2" name="budget" value="3-5M">
+                                    <label for="budget2">$3M - $5M</label>
+                                </div>
+                                <div class="budget-option">
+                                    <input type="radio" id="budget3" name="budget" value="5M+">
+                                    <label for="budget3">$5M+</label>
+                                </div>
+                                <div class="budget-option">
+                                    <input type="radio" id="budget4" name="budget" value="negociable">
+                                    <label for="budget4">Negociable</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timeline -->
+                        <div class="form-group-quote">
+                            <label>⏰ Tiempo Requerido</label>
+                            <div class="urgency-options">
+                                <div class="urgency-option">
+                                    <input type="radio" id="urgent" name="timeline" value="urgente">
+                                    <label for="urgent">🚨 Urgente<br><small>1-2 semanas</small></label>
+                                </div>
+                                <div class="urgency-option">
+                                    <input type="radio" id="normal" name="timeline" value="normal">
+                                    <label for="normal">📅 Normal<br><small>1-2 meses</small></label>
+                                </div>
+                                <div class="urgency-option">
+                                    <input type="radio" id="flexible" name="timeline" value="flexible">
+                                    <label for="flexible">🕐 Flexible<br><small>3+ meses</small></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Services -->
+                        <div class="form-group-quote">
+                            <label for="additionalServices">Servicios Adicionales</label>
+                            <select id="additionalServices" name="additionalServices" multiple style="height: 120px;">
+                                <option value="hosting">🌐 Hosting y Dominio</option>
+                                <option value="maintenance">🔧 Mantenimiento</option>
+                                <option value="seo">🚀 Optimización SEO</option>
+                                <option value="analytics">📊 Analytics y Reportes</option>
+                                <option value="training">📚 Capacitación</option>
+                                <option value="support">💬 Soporte Técnico</option>
+                            </select>
+                            <small style="color: #666; font-size: 0.85rem;">Mantén Ctrl presionado para seleccionar múltiples opciones</small>
+                        </div>
+
+                        <!-- Additional Comments -->
+                        <div class="form-group-quote">
+                            <label for="quoteComments">Comentarios Adicionales</label>
+                            <textarea id="quoteComments" name="comments" rows="3" 
+                                placeholder="¿Algún detalle específico, referencia, o pregunta adicional?"></textarea>
+                        </div>
+
+                        <!-- How did you hear about us -->
+                        <div class="form-group-quote">
+                            <label for="referralSource">¿Cómo nos conociste?</label>
+                            <select id="referralSource" name="referralSource">
+                                <option value="">Selecciona una opción</option>
+                                <option value="google">🔍 Google</option>
+                                <option value="social">📱 Redes Sociales</option>
+                                <option value="referral">👥 Recomendación</option>
+                                <option value="advertising">📺 Publicidad</option>
+                                <option value="event">🎪 Evento</option>
+                                <option value="other">🤷 Otro</option>
+                            </select>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="quote-actions">
+                            <button type="submit" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;">
+                                📧 Enviar Solicitud de Cotización
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="closeQuoteForm()" style="padding: 1rem 2rem;">
+                                ❌ Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact-section" class="contact-section">
+            <div class="contact-container">
+                <div class="contact-header">
+                    <h2>Contáctanos</h2>
+                    <p>Estamos aquí para ayudarte a transformar tu negocio con tecnología innovadora. Hablemos sobre tu próximo proyecto.</p>
+                </div>
+
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Información de Contacto</h3>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-details">
+                                <h4>Oficina Principal</h4>
+                                <p>Calle 123 #45-67<br>Medellín, Antioquia, Colombia</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-details">
+                                <h4>Teléfono</h4>
+                                <p>+57 (4) 123-4567<br>+57 300 123 4567</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <p>contacto@techsolutionspro.com<br>ventas@techsolutionspro.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">🕒</div>
+                            <div class="contact-details">
+                                <h4>Horario de Atención</h4>
+                                <p>Lun - Vie: 8:00 AM - 6:00 PM<br>Sáb: 9:00 AM - 2:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="social-links">
+                            <h4>Síguenos en:</h4>
+                            <div class="social-icons">
+                                <a href="#" class="social-icon" title="LinkedIn">💼</a>
+                                <a href="#" class="social-icon" title="Twitter">🐦</a>
+                                <a href="#" class="social-icon" title="Facebook">📘</a>
+                                <a href="#" class="social-icon" title="Instagram">📷</a>
+                                <a href="#" class="social-icon" title="YouTube">📺</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-form">
+                        <h3>Envíanos un Mensaje</h3>
+                        <form id="contactForm">
+                            <div class="form-group-contact">
+                                <label for="contactName">Nombre Completo *</label>
+                                <input type="text" id="contactName" name="name" required placeholder="Tu nombre completo">
+                            </div>
+
+                            <div class="form-group-contact">
+                                <label for="contactEmail">Email *</label>
+                                <input type="email" id="contactEmail" name="email" required placeholder="tu@email.com">
+                            </div>
+
+                            <div class="form-group-contact">
+                                <label for="contactPhone">Teléfono</label>
+                                <input type="tel" id="contactPhone" name="phone" placeholder="+57 300 123 4567">
+                            </div>
+
+                            <div class="form-group-contact">
+                                <label for="contactCompany">Empresa</label>
+                                <input type="text" id="contactCompany" name="company" placeholder="Nombre de tu empresa">
+                            </div>
+
+                            <div class="form-group-contact">
+                                <label for="contactService">Servicio de Interés</label>
+                                <select id="contactService" name="service" style="width: 100%; padding: 0.8rem; border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; background: rgba(255, 255, 255, 0.1); color: white; backdrop-filter: blur(5px);">
+                                    <option value="">Selecciona un servicio</option>
+                                    <option value="desarrollo-web">Desarrollo Web</option>
+                                    <option value="apps-moviles">Aplicaciones Móviles</option>
+                                    <option value="cloud">Soluciones en la Nube</option>
+                                    <option value="seguridad">Ciberseguridad</option>
+                                    <option value="analytics">Business Intelligence</option>
+                                    <option value="diseno">Diseño UX/UI</option>
+                                    <option value="automatizacion">Automatización</option>
+                                    <option value="seo">Optimización SEO</option>
+                                    <option value="consultoria">Consultoría</option>
+                                    <option value="soporte">Soporte Técnico</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group-contact">
+                                <label for="contactMessage">Mensaje *</label>
+                                <textarea id="contactMessage" name="message" rows="5" required placeholder="Cuéntanos sobre tu proyecto o necesidad..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                Enviar Mensaje
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services-section" class="services">
+            <h2>Nuestros Servicios</h2>
+            <div class="services-grid" id="servicesGrid">
+                <!-- Services will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login-section" class="login-section hidden">
+            <h2>Acceso Administrativo</h2>
+            <div class="login-form-container">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Usuario:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Iniciar Sesión</button>
+                </form>
+                <p style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                    Credenciales de prueba: admin / admin123
+                </p>
+            </div>
+        </section>
+
+        <!-- Admin Panel -->
+        <section id="admin-panel" class="admin-panel">
+            <div class="admin-header">
+                <h2>Panel de Administración</h2>
+                <button class="btn btn-secondary" onclick="logout()">Cerrar Sesión</button>
+            </div>
+
+            <div class="admin-content">
+                <!-- CRUD Section -->
+                <div class="crud-section">
+                    <h3>Gestión de Servicios</h3>
+                    <div class="crud-form">
+                        <h4 id="formTitle">Agregar Nuevo Servicio</h4>
+                        <form id="serviceForm">
+                            <input type="hidden" id="serviceId" name="id">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="serviceName">Nombre del Servicio:</label>
+                                    <input type="text" id="serviceName" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="servicePrice">Precio (COP):</label>
+                                    <input type="number" id="servicePrice" name="price" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="serviceIcon">Icono:</label>
+                                    <select id="serviceIcon" name="icon" required>
+                                        <option value="💻">💻 Desarrollo Web</option>
+                                        <option value="📱">📱 Apps Móviles</option>
+                                        <option value="☁️">☁️ Cloud</option>
+                                        <option value="🔒">🔒 Seguridad</option>
+                                        <option value="📊">📊 Analytics</option>
+                                        <option value="🎨">🎨 Diseño</option>
+                                        <option value="⚙️">⚙️ Automatización</option>
+                                        <option value="🚀">🚀 Optimización</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="serviceStock">Cantidad Disponible:</label>
+                                    <input type="number" id="serviceStock" name="stock" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceDescription">Descripción:</label>
+                                <textarea id="serviceDescription" name="description" rows="3" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 10px; resize: vertical;" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="servicePromotion">Promoción (opcional):</label>
+                                <input type="text" id="servicePromotion" name="promotion" placeholder="Ej: 20% de descuento este mes">
+                            </div>
+                            <div class="action-buttons">
+                                <button type="submit" class="btn btn-primary">Guardar Servicio</button>
+                                <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Services Table -->
+                    <table class="services-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Servicio</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Promoción</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="servicesTableBody">
+                            <!-- Services will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Service Detail Modal -->
+    <div id="serviceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="serviceDetails">
+                <!-- Service details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

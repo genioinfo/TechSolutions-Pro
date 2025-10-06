@@ -1,0 +1,52 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "admin123",
+      "role": "administrator",
+      "email": "admin@techsolutionspro.com",
+      "full_name": "Administrador Principal",
+      "created_at": "2025-09-01T10:00:00Z",
+      "last_login": null,
+      "active": true,
+      "permissions": [
+        "create_service",
+        "read_service", 
+        "update_service",
+        "delete_service",
+        "manage_users"
+      ]
+    },
+    {
+      "id": 2,
+      "username": "manager",
+      "password": "manager456",
+      "role": "manager",
+      "email": "manager@techsolutionspro.com",
+      "full_name": "Gerente de Servicios",
+      "created_at": "2025-09-05T14:30:00Z",
+      "last_login": "2025-09-15T09:15:00Z",
+      "active": true,
+      "permissions": [
+        "create_service",
+        "read_service",
+        "update_service"
+      ]
+    },
+    {
+      "id": 3,
+      "username": "viewer",
+      "password": "viewer789",
+      "role": "viewer",
+      "email": "viewer@techsolutionspro.com", 
+      "full_name": "Usuario Solo Lectura",
+      "created_at": "2025-09-10T16:45:00Z",
+      "last_login": "2025-09-14T11:20:00Z",
+      "active": true,
+      "permissions": [
+        "read_service"
+      ]
+    }
+  ]
+}
