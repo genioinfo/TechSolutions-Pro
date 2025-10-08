@@ -1,0 +1,104 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin"
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "name": "Desarrollo Web",
+      "price": 3000000,
+      "stock": 12,
+      "description": "Sitios web responsivos y a medida.",
+      "icon": "💻",
+      "promotion": "10% este mes"
+    },
+    {
+      "id": 2,
+      "name": "Apps Móviles",
+      "price": 4500000,
+      "stock": 5,
+      "description": "Aplicaciones nativas y multiplataforma.",
+      "icon": "📱",
+      "promotion": ""
+    },
+    {
+      "id": 3,
+      "name": "Hosting y Dominio",
+      "price": 300000,
+      "stock": 100,
+      "description": "Planes de hosting y registro de dominios.",
+      "icon": "☁️",
+      "promotion": "Hosting gratis 1 mes"
+    },
+    {
+      "id": 4,
+      "name": "Soporte Técnico",
+      "price": 120000,
+      "stock": 50,
+      "description": "Soporte remoto y en sitio.",
+      "icon": "🔒",
+      "promotion": ""
+    },
+    {
+      "id": 5,
+      "name": "Ciberseguridad",
+      "price": 1800000,
+      "stock": 8,
+      "description": "Auditorías de seguridad y hardening.",
+      "icon": "📊",
+      "promotion": "Evaluación gratuita"
+    },
+    {
+      "id": 6,
+      "name": "Consultoría TI",
+      "price": 900000,
+      "stock": 10,
+      "description": "Asesoría para transformación digital.",
+      "icon": "🎨",
+      "promotion": ""
+    },
+    {
+      "id": 7,
+      "name": "Integración API",
+      "price": 750000,
+      "stock": 7,
+      "description": "Integraciones entre sistemas y automatizaciones.",
+      "icon": "⚙️",
+      "promotion": ""
+    },
+    {
+      "id": 8,
+      "name": "Business Intelligence",
+      "price": 1300000,
+      "stock": 6,
+      "description": "Dashboards y reportes a medida.",
+      "icon": "🚀",
+      "promotion": ""
+    },
+    {
+      "id": 9,
+      "name": "SEO y Marketing",
+      "price": 650000,
+      "stock": 15,
+      "description": "Mejora de visibilidad y campañas.",
+      "icon": "💡",
+      "promotion": "15% en primer mes"
+    },
+    {
+      "id": 10,
+      "name": "Mantenimiento",
+      "price": 220000,
+      "stock": 20,
+      "description": "Planes de mantenimiento y actualizaciones.",
+      "icon": "🛠️",
+      "promotion": ""
+    }
+  ],
+  "contacts": [],
+  "quotes": []
+}

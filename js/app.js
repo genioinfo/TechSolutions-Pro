@@ -39,104 +39,39 @@ async function loadDatabase() {
 }
 
 // Fallback default data (same as before)
-function loadDefaultData() {
-    services = [
-        {
-            id: 1,
-            name: "Desarrollo Web Personalizado",
-            price: 2500000,
-            icon: "💻",
-            description: "Creamos sitios web únicos y funcionales adaptados a las necesidades específicas de tu negocio.",
-            stock: 5,
-            promotion: "20% de descuento en el primer proyecto"
-        },
-        {
-            id: 2,
-            name: "Aplicaciones Móviles",
-            price: 4500000,
-            icon: "📱",
-            description: "Desarrollamos apps nativas e híbridas para iOS y Android con tecnología de vanguardia.",
-            stock: 3,
-            promotion: ""
-        },
-        {
-            id: 3,
-            name: "Soluciones en la Nube",
-            price: 1800000,
-            icon: "☁️",
-            description: "Migración y gestión de infraestructura cloud para optimizar costos y rendimiento.",
-            stock: 10,
-            promotion: "Consultoría inicial gratuita"
-        },
-        {
-            id: 4,
-            name: "Ciberseguridad Empresarial",
-            price: 3200000,
-            icon: "🔒",
-            description: "Protección integral de datos y sistemas con auditorías de seguridad completas.",
-            stock: 7,
-            promotion: ""
-        },
-        {
-            id: 5,
-            name: "Business Intelligence",
-            price: 2800000,
-            icon: "📊",
-            description: "Transformamos tus datos en insights valiosos para la toma de decisiones estratégicas.",
-            stock: 4,
-            promotion: "Dashboard demo incluido"
-        },
-        {
-            id: 6,
-            name: "Diseño UX/UI",
-            price: 1500000,
-            icon: "🎨",
-            description: "Interfaces intuitivas y atractivas que mejoran la experiencia del usuario.",
-            stock: 8,
-            promotion: ""
-        },
-        {
-            id: 7,
-            name: "Automatización de Procesos",
-            price: 3500000,
-            icon: "⚙️",
-            description: "Optimización de workflows empresariales mediante automatización inteligente.",
-            stock: 6,
-            promotion: "Análisis de procesos gratis"
-        },
-        {
-            id: 8,
-            name: "Optimización SEO",
-            price: 1200000,
-            icon: "🚀",
-            description: "Mejoramos la visibilidad de tu sitio web en motores de búsqueda.",
-            stock: 12,
-            promotion: "Reporte mensual incluido"
-        },
-        {
-            id: 9,
-            name: "Consultoría Tecnológica",
-            price: 800000,
-            icon: "💡",
-            description: "Asesoramiento estratégico para la transformación digital de tu empresa.",
-            stock: 15,
-            promotion: ""
-        },
-        {
-            id: 10,
-            name: "Soporte Técnico 24/7",
-            price: 950000,
-            icon: "🛠️",
-            description: "Mantenimiento y soporte continuo para tus sistemas y aplicaciones.",
-            stock: 20,
-            promotion: "Primer mes con 50% de descuento"
+// Cargar datos desde db.json (usuarios y servicios)
+async function loadDefaultData() {
+    try {
+        // 1️⃣ Intentar leer el archivo db.json
+        const response = await fetch('db/db.json');
+        if (!response.ok) {
+            throw new Error('Error al cargar el archivo db.json');
         }
-    ];
 
-    users = [
-        { username: "admin", password: "admin123" }
-    ];
+        // 2️⃣ Convertir respuesta a JSON
+        const data = await response.json();
+        console.log('✅ Datos cargados desde db.json:', data);
+
+        // 3️⃣ Asignar los valores globales
+        services = data.services || [];
+        users = data.users || [];
+
+        console.log(`📦 ${services.length} servicios cargados`);
+        console.log(`👤 ${users.length} usuarios cargados`);
+
+        // 4️⃣ Renderizar los servicios en la interfaz
+        loadServices();
+
+    } catch (error) {
+        console.error('❌ Error cargando db.json:', error);
+
+        // Si hay un error, inicializar con arrays vacíos (para evitar fallos)
+        services = [];
+        users = [];
+        loadServices();
+    }
 }
+
 
 let isLoggedIn = false;
 let editingServiceId = null;
