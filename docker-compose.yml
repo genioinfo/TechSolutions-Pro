@@ -1,0 +1,34 @@
+# Versión de la sintaxis de Docker Compose
+version: '3.8'
+
+# Definición de los servicios (contenedores)
+services:
+  # Servicio del Backend
+  backend:
+    container_name: techsolutions_backend
+    # Construye la imagen usando el Dockerfile en la carpeta ./backend
+    build: ./backend
+    # Mapea el puerto 5001 de la máquina al puerto 5000 del contenedor
+    ports:
+      - "5001:5000"
+    networks:
+      - app-network
+
+  # Servicio del Frontend
+  frontend:
+    container_name: techsolutions_frontend
+    # Construye la imagen usando el Dockerfile en la carpeta ./frontend
+    build: ./frontend
+    # Mapea el puerto 8080 de la máquina al puerto 80 del contenedor
+    ports:
+      - "8080:80"
+    # Asegura que el backend se inicie antes que el frontend
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+# Define la red que permite la comunicación entre contenedores
+networks:
+  app-network:
+    driver: bridge
