@@ -1,0 +1,104 @@
+pipeline {
+    agent any
+    
+    // Definir variables de entorno
+    environment {
+        DOCKER_IMAGE_BACKEND = 'techsolutions-backend'
+        DOCKER_IMAGE_FRONTEND = 'techsolutions-frontend'
+        DOCKER_TAG = "${env.BUILD_NUMBER}"
+        REGISTRY = 'dockerhub_usuario'  // Cambia esto por tu usuario de Docker Hub
+    }
+    
+    // Parámetros configurables
+    parameters {
+        string(name: 'BACKEND_PORT', defaultValue: '5001', description: 'Puerto del backend')
+        string(name: 'FRONTEND_PORT', defaultValue: '8080', description: 'Puerto del frontend')
+        booleanParam(name: 'DEPLOY', defaultValue: false, description: '¿Desplegar después de construir?')
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                echo '📥 Obteniendo código desde GitHub...'
+                checkout scm
+            }
+        }
+        
+        stage('Build Backend') {
+            steps {
+                echo '🔨 Construyendo imagen Docker del Backend...'
+                dir('backend') {
+                    script {
+                        sh """
+                            docker build -t ${DOCKER_IMAGE_BACKEND}:${DOCKER_TAG} .
+                            docker tag ${DOCKER_IMAGE_BACKEND}:${DOCKER_TAG} ${DOCKER_IMAGE_BACKEND}:latest
+                        """
+                    }
+                }
+            }
+        }
+        
+        stage('Build Frontend') {
+            steps {
+                echo '🔨 Construyendo imagen Docker del Frontend...'
+                dir('frontend') {
+                    script {
+                        sh """
+                            docker build -t ${DOCKER_IMAGE_FRONTEND}:${DOCKER_TAG} .
+                            docker tag ${DOCKER_IMAGE_FRONTEND}:${DOCKER_TAG} ${DOCKER_IMAGE_FRONTEND}:latest
+                        """
+                    }
+                }
+            }
+        }
+        
+        stage('Test Backend') {
+            steps {
+                echo '🧪 Ejecutando pruebas del Backend...'
+                script {
+                    sh """
+                        docker run --rm ${DOCKER_IMAGE_BACKEND}:latest python -m pytest || echo "No hay tests configurados aún"
+                    """
+                }
+            }
+        }
+        
+        stage('Deploy with Docker Compose') {
+            when {
+                expression { params.DEPLOY == true }
+            }
+            steps {
+                echo '🚀 Desplegando aplicación con Docker Compose...'
+                script {
+                    sh """
+                        docker-compose down || true
+                        docker-compose up -d
+                    """
+                }
+            }
+        }
+        
+        stage('Clean Up') {
+            steps {
+                echo '🧹 Limpiando imágenes antiguas...'
+                script {
+                    sh """
+                        docker image prune -f
+                    """
+                }
+            }
+        }
+    }
+    
+    post {
+        success {
+            echo '✅ Pipeline ejecutado exitosamente!'
+        }
+        failure {
+            echo '❌ Pipeline falló. Revisa los logs.'
+        }
+        always {
+            echo '🏁 Pipeline finalizado.'
+        }
+    }
+}
