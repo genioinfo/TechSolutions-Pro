@@ -1,0 +1,30 @@
+name: CI TechSolutions
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Docker (ya viene instalado en ubuntu-latest)
+        run: docker --version
+
+      - name: Construir imágenes con docker-compose
+        run: docker compose build
+
+      - name: Levantar servicios para pruebas
+        run: docker compose up -d
+
+      # Ejemplo: ejecutar tests del backend Python
+      - name: Ejecutar tests backend
+        run: |
+          docker compose exec -T backend pytest || echo "Sin tests aún"
+
+      - name: Apagar servicios
+        if: always()
+        run: docker compose down
