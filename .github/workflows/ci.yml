@@ -28,3 +28,31 @@ jobs:
       - name: Apagar servicios
         if: always()
         run: docker compose down
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: |
+          pip install -r backend/requirements.txt
+          pip install pytest pytest-cov
+
+      - name: Ejecutar tests con cobertura
+        working-directory: backend
+        run: |
+          pytest --cov=. --cov-report=xml
+
+      - name: Subir reporte a Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: backend/coverage.xml
+          fail_ci_if_error: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }} # solo si el repo es privado
