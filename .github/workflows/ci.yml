@@ -45,7 +45,7 @@ jobs:
           pip install pytest pytest-cov
 
       - name: Ejecutar tests con cobertura
-        working-directory: backend
+        #working-directory: backend
         run: |
           pytest --cov=. --cov-report=xml
 
