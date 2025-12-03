@@ -21,7 +21,7 @@ services:
     build: ./frontend
     # Mapea el puerto 8080 de la máquina al puerto 80 del contenedor
     ports:
-      - "8080:80"
+      - "8081:80"
     # Asegura que el backend se inicie antes que el frontend
     depends_on:
       - backend
