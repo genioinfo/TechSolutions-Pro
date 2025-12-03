@@ -28,7 +28,7 @@ jobs:
       - name: Apagar servicios
         if: always()
         run: docker compose down
-jobs:
+        
   tests:
     runs-on: ubuntu-latest
     steps:
