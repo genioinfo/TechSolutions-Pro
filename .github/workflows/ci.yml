@@ -47,7 +47,7 @@ jobs:
       - name: Ejecutar tests con cobertura
         #working-directory: backend
         run: |
-          pytest --cov=. --cov-report=xml
+          pytest backend/tests --cov=backend --cov-report=xml:coverage.xml
 
       - name: Subir reporte a Codecov
         uses: codecov/codecov-action@v4
@@ -55,4 +55,5 @@ jobs:
           files: backend/coverage.xml
           fail_ci_if_error: true
         env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }} # solo si el repo es privado
+          #CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          # solo si el repo es privado
