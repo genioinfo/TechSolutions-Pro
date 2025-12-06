@@ -1,7 +1,7 @@
 import os
 import logging
-from flask import Flask, jsonify, request
-from flask_cors import CORS
+from flask import Flask, jsonify, request # type: ignore
+from flask_cors import CORS # pyright: ignore[reportMissingModuleSource]
 from dotenv import load_dotenv
 
 # Cargar variables de entorno desde el archivo .env

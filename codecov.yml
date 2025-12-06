@@ -1,0 +1,9 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 80%  #Cobertura global mínima
+        threshold: 1% #Tolerancia de caida
+    patch:
+      default:
+        target: 80%
